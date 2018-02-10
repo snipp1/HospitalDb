@@ -19,6 +19,7 @@ use App\Religion;
 use App\TypeOfInsurance;
 use App\TypeOfPatient;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class PatientController extends Controller
 {
@@ -30,6 +31,7 @@ class PatientController extends Controller
     public function index()
     {
         //
+        return view('admin.patients.show');
     }
 
     /**
@@ -97,10 +99,14 @@ class PatientController extends Controller
      * @param  \App\Patient  $patient
      * @return \Illuminate\Http\Response
      */
-    public function show(Patient $patient)
+    public function show()
     {
         //
-
+        return DataTables::of(Patient::all())->addColumn('action', function ($data) {
+            return '<a href="' . route('patient.bill', $data->id) . '" class="btn btn-info btn-sm"><i class="fa fa-money"></i></a> ' .
+            '<a href="' . route('patient.edit', $data->id) . '" class="btn btn-info btn-sm"><i class="ti ti-pencil"></i></a> ' .
+                '<a href="' . route('patient.delete', $data->id) . '" class="btn btn-danger btn-sm"><i class="ti ti-trash"></i></a>';
+        })->toJson();
 
     }
 
@@ -136,6 +142,12 @@ class PatientController extends Controller
     public function destroy(Patient $patient)
     {
         //
+
+    }
+
+    public function bill(Patient $patient){
+
+        return view('admin.patients.view',compact('patient'));
 
     }
 }

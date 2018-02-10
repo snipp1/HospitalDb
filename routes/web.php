@@ -96,6 +96,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/edit/{patient}', ['uses' => 'PatientController@edit', 'as' => 'patient.edit']);
         Route::post('/update/{patient}', ['uses' => 'PatientController@update', 'as' => 'patient.update']);
         Route::get('/delete/{patient}', ['uses' => 'PatientController@delete', 'as' => 'patient.delete']);
+        Route::get('/bill/{patient}', ['uses' => 'PatientController@bill', 'as' => 'patient.bill']);
     });
     Route::get('/logout', [
         'uses' => 'LoginController@logout',
