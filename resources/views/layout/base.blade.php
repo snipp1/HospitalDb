@@ -14,7 +14,7 @@
 
     <link type="text/css" href="{{asset('assets/fonts/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">        <!-- Font Awesome -->
     <link type="text/css" href="{{asset('assets/fonts/themify-icons/themify-icons.css')}}" rel="stylesheet">              <!-- Themify Icons -->
-             <!-- Core CSS with all styles -->
+    <!-- Core CSS with all styles -->
 
     <link type="text/css" href="{{asset('assets/plugins/codeprettifier/prettify.css')}}" rel="stylesheet">                <!-- Code Prettifier -->
     <link type="text/css" href="{{asset('assets/plugins/iCheck/skins/minimal/blue.css')}}" rel="stylesheet">              <!-- iCheck -->
@@ -33,6 +33,7 @@
     <link type="text/css" href="{{asset('assets/plugins/jvectormap/jquery-jvectormap-2.0.2.css')}}" rel="stylesheet"> 			<!-- jVectorMap -->
     <link type="text/css" href="{{asset('assets/plugins/pines-notify/pnotify.css')}}" rel="stylesheet"> 			<!-- jVectorMap -->
     <link type="text/css" href="{{asset('assets/plugins/switchery/switchery.css')}}" rel="stylesheet">
+    <link type="text/css" href="{{asset('assets/plugins/gridforms/gridforms/gridforms.css')}}" rel="stylesheet">
 
     {{--<link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">--}}
     <link type="text/css" href="{{asset('assets/css/styles.css')}}" rel="stylesheet">
@@ -46,7 +47,7 @@
 
 <div id="wrapper">
     <div id="layout-static">
-    @include('includes.sidebar')
+        @include('includes.sidebar')
         <div class="static-content-wrapper">
             <div class="static-content">
                 <div class="page-content">
@@ -55,13 +56,13 @@
                     <div class="container-fluid">
 
 
-@yield('contents')
+                        @yield('contents')
 
                     </div> <!-- .container-fluid -->
                 </div> <!-- #page-content -->
             </div>
 
-@include('includes.footer')
+            @include('includes.footer')
         </div>
     </div>
 </div>
@@ -140,19 +141,20 @@
 <script src="{{asset('assets/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js')}}"></script>
 <script src="{{asset('assets/plugins/quicksearch/jquery.quicksearch.min.js')}}"></script>
 <script src="{{asset('assets/plugins/pines-notify/pnotify.min.js')}}"></script>
+<script src="{{asset('assets/plugins/gridforms/gridforms/gridforms.js')}}"></script>
 {{--<script type="text/javascript" src="{{asset('assets/demo/demo-index.js')}}"></script> 									<!-- Initialize scripts for this page-->--}}
 @stack('scripts')
 <!-- End loading page level scripts-->
 @if(session()->has('pine-msg'))
     <script>
-    new PNotify({
-        title: '{!! session("pine-msg")["pine_title"] !!}',
-        text: '{!! session("pine-msg")["pine_body"] !!}',
-        type: '{!! session("pine-msg")["pine_type"] !!}',
-        icon: '{!! session("pine-msg")["pine_icon"] !!}',
-        styling: 'fontawesome'
-    });
-</script>
+        new PNotify({
+            title: '{!! session("pine-msg")["pine_title"] !!}',
+            text: '{!! session("pine-msg")["pine_body"] !!}',
+            type: '{!! session("pine-msg")["pine_type"] !!}',
+            icon: '{!! session("pine-msg")["pine_icon"] !!}',
+            styling: 'fontawesome'
+        });
+    </script>
 
 
 @endif
