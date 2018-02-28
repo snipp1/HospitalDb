@@ -1,7 +1,7 @@
 @extends('layout.base')
 
 @section('title')
-    Users
+    Patients
 @endsection
 
 @push('stylesheet')
@@ -10,16 +10,25 @@
     <ol class="breadcrumb">
 
 
-        <li class="active"><a href="{{route('users.index')}}">Users</a></li>
+        <li class="active"><a href="{{route('patient.index')}}">Patients</a></li>
 
     </ol>
 @endpush
 @section('contents')
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h2>Users</h2>
+            <h2>Patients</h2>
             <div class="panel-ctrls" style="padding-top: 10px;" >
-                <a href="{{route('users.create')}}" class="btn btn-default"><i class="ti ti-pencil"></i> Add Users</a>
+                <a href="{{route('patient.create')}}" class="btn btn-default"><i class="ti ti-pencil"></i> Add Patients</a>
             </div>
         </div>
         <div class="panel-body ">
@@ -27,10 +36,10 @@
             <table id="ayear-table" class=" table table-striped " cellspacing="0" width="100%">
                 <thead>
                 <tr>
-                    <th>Shift</th>
-                    {{--<th>Name</th>--}}
-                    {{--<th>Gender</th>--}}
-                    {{--<th>Username</th>--}}
+                    <th>Folder Name</th>
+                    <th>Patients Name</th>
+                    <th>Gender</th>
+                    <th>Date of Birth</th>
                     {{--<th>Email</th>--}}
                     {{--<th>Phone</th>--}}
                     {{--<th>Hospital</th>--}}
@@ -62,9 +71,9 @@
 
 
                     { data: 'folder_number', name: 'folder_number' },
-//                    { data: 'name', name: 'name' },
-//                    { data: 'gender', name: 'gender' },
-//                    { data: 'username', name: 'username' },
+                    { data: 'name', name: 'name' },
+                    { data: 'gender', name: 'gender' },
+                    { data: 'dob', name: 'dob' },
 //                    { data: 'email', name: 'email' },
 //                    { data: 'official_phone', name: 'official_phone' },
 //                    { data: 'hospital_id', name: 'pharmacy_id' },
@@ -78,7 +87,8 @@
                 ],
                 lengthMenu: [[10, 25, 50,100, -1], [10, 25, 50,100, "All"]]
             });
-            $('.input-sm').attr('placeholder','Search...');
+            $('.input-sm').attr('placeholder','Search folder name');
+            $('.input-sm[type="search"]').css('width','250px').css('height','35px').css('font-size','14px');
             $('.input-sm').addClass('form-control');
             $('.dt-buttons').addClass('btn-group');
             $('.dt-buttons a').addClass('btn btn-info');
