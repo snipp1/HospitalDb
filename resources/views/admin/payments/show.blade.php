@@ -120,8 +120,13 @@
                         <div class="form-group col-sm-offset-2 col-sm-8 ">
                             <label class="col-sm-12 control-label">Amount Paid</label>
                             <div class="col-sm-12">
+                                <form action="{{route('patient.payment.pay')}}" method="post" id="paid_form">
+                                    {{csrf_field()}}
+                                <input type="text" class="form-control" value="" name="bills_id" id="bills_id"
+                                       placeholder="" style="display: none;">
                                 <input type="number" class="form-control" value="{{old('paid_amount')}}" name="paid_amount" id="paid_amount"
                                        placeholder="">
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -151,11 +156,23 @@
 
         function payBill(ids) {
             var bill_id=ids;
-            var paid_amount=$('#paid_amount').val()
-// $("#myModal1").modal();
+            $('#bills_id').val(ids)
+//
+ $("#myModal1").modal();
 //            maintable.ajax.reload();
 
         }
+        $('#pay_bill').on("click",function () {
+            $('#paid_form').submit();
+            {{--var paid_amount=$('#paid_amount').val()--}}
+            {{--var bill_id=$('#bills_id').val()--}}
+            {{--var url='{!! route('patient.payment.pay',[':bills','amount']) !!}'--}}
+            {{--url = url.replace(':bills', bill_id);--}}
+            {{--url = url.replace(':amount', paid_amount);--}}
+            {{--$.post(url,function (data) {--}}
+
+            {{--})--}}
+        })
     $(function () {
         var id='{!! $patient->id !!}'
         var url = '{{ route("patient.billing.payment.bill", [":patient"]) }}';

@@ -121,7 +121,8 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/create/{patient}', ['uses' => 'BillPaymentController@create', 'as' => 'patient.billing.payment.create']);
             Route::post('/store', ['uses' => 'BillPaymentController@store', 'as' => 'patient.billing.payment.store']);
             Route::post('/view/{bills}/', ['uses' => 'BillPaymentController@view', 'as' => 'patient.billing.payment.view']);
-//            Route::get('/edit/{patient}', ['uses' => 'BillPaymentController@edit', 'as' => 'patient.payment.edit']);
+            Route::post('/pay/', ['uses' => 'BillPaymentController@pay', 'as' => 'patient.payment.pay']);
+//            Route::get('/pay/{bills}/{amount}', ['uses' => 'BillPaymentController@pay', 'as' => 'patient.payment.pay']);
 //            Route::post('/update/{patient}', ['uses' => 'BillPaymentController@update', 'as' => 'patient.payment.update']);
 //            Route::get('/delete/{patient}', ['uses' => 'BillPaymentController@destroy', 'as' => 'patient.payment.delete']);
             Route::post('/bill/{patient}', ['uses' => 'BillPaymentController@bills', 'as' => 'patient.billing.payment.bill']);

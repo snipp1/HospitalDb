@@ -103,6 +103,56 @@ return DataTables::of($items)->addColumn('name',function ($data){
     return $data->itemised->name;
 })->toJson();
     }
+    public function pay(Request $request)
+    {
+        $this->validate($request,[
+            'paid_amount'=>'required'
+        ]);
+        $bills=Bills::find($request->input('bills_id'));
+//        dd($request);
+        $amount=floatval($request->input('paid_amount'));
+        $bill_amount=floatval($bills->bill_amount);
+
+        $date=date(now());
+
+
+if ($bills->is_paid==1){
+    return redirect()->back()->withErrors("Bill Already Paid");
+}else{
+    if ($bills->paid_amount==0.00){
+        $arrears=$bill_amount-$amount;
+        if ($arrears<0){
+            return redirect()->back()->withErrors("Invalid Amount, Enter the Exact Amount of the Bill");
+        }
+        $bills->paid_amount=$amount;
+        $bills->arrears=$arrears;
+        $bills->paid_date=$date;
+        if ($arrears==0){
+            $bills->is_paid=1;
+        }
+        $bills->save();
+        session()->flash('pine-msg',['pine_title'=>'Payment Saved','pine_body'=>'You have successfully made payment','pine_type'=>'success','pine_icon'=>'ti ti-check']);
+        return redirect()->back();
+    }else{
+        $arrears=floatval($bills->arrears)-$amount;
+        if ($arrears<0){
+            return redirect()->back()->withErrors("Invalid Amount, Enter the Exact Amount of the Arrears");
+        }
+        $bills->paid_amount=floatval($bills->paid_amount)+$amount;
+        $bills->arrears=$arrears;
+        $bills->paid_date=$date;
+        if ($arrears==0){
+            $bills->is_paid=1;
+        }
+        $bills->save();
+
+        session()->flash('pine-msg',['pine_title'=>'Payment Saved','pine_body'=>'You have successfully made payment','pine_type'=>'success','pine_icon'=>'ti ti-check']);
+        return redirect()->back();
+
+    }
+}
+
+    }
 
     /**
      * Update the specified resource in storage.
