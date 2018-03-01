@@ -28,6 +28,7 @@ class CreateHospitalsTable extends Migration
             $table->string('product_key')->nullable();
             $table->boolean('is_locked')->unsigned()->nullable();
             $table->boolean('is_registered')->unsigned()->nullable();
+            $table->string('acronym',20)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

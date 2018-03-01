@@ -52,8 +52,20 @@ class HospitalController extends Controller
             'email_password'=>'sometimes' ,'product_key'=>'sometimes'
         ]);
         //
+        $acronym_val=[];
+        $explode_val=explode(' ',$request->input('name'));
+        foreach ($explode_val as $value){
+            $acronym_val[]=substr($value,0,1);
+        }
+//        dd($explode_val,$acronym_val);
+        $acronym=null;
+       foreach ($acronym_val as $value){
+           $acronym.=$value;
+       }
 
         $hospital=Hospital::create($request->except('_token'));
+        $hospital->acronym=$acronym;
+        $hospital->save();
         $msg=\auth()->user()->username.' Added a new Hospital to the system with name '.$hospital->name;
 
         session()->flash('pine-msg',['pine_title'=>'SUCCESSFUL','pine_body'=>'You have successfully added New Hospital','pine_type'=>'success','pine_icon'=>'ti ti-check']);

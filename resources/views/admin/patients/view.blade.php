@@ -28,6 +28,7 @@
             <div class="panel-heading">
                 <h2>New Patient</h2>
                 <div class="panel-ctrls" style="padding-top: 10px;">
+
                 </div>
             </div>
             <div class="panel-body">
@@ -89,11 +90,11 @@
                         <div data-row-span="4">
                             <div data-field-span="1">
                                 <label>Nationality</label>
-                                <select name="nationality" id="">
+                                <select name="country" id="">
                                     <option value="" >-- select--</option>
                                     @foreach($country as $item)
-                                        @if(!empty(old('nationality')))
-                                            @if(old('nationality')==$item->id)
+                                        @if(!empty(old('country')))
+                                            @if(old('country')==$item->id)
                                                 <option value="{{$item->id}}" selected>{{$item->country_name}}</option>
                                             @else
                                                 <option value="{{$item->id}}">{{$item->country_name}}</option>
@@ -234,13 +235,13 @@
             @foreach($next_of_king_relationship as $item)
                 @if(!empty(old('next_of_king_relationship')))
                     @if(old('next_of_king_relationship')==$item->id)
-                        <option value="{{$item->id}}" selected>{{$item->name}}</option>
+                        <option value="{{$item->id}}" selected>{{$item->ms_name}}</option>
                     @else
-                        <option value="{{$item->id}}">{{$item->name}}</option>
+                        <option value="{{$item->id}}">{{$item->ms_name}}</option>
                     @endif
                 @else
 
-                    <option value="{{$item->id}}">{{$item->name}}</option>
+                    <option value="{{$item->id}}">{{$item->ms_name}}</option>
 
                 @endif
             @endforeach

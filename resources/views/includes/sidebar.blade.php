@@ -27,21 +27,42 @@
                         {{--<li><a href="{{route('bc.index')}}"><i class="fa fa-user"></i><span>Bible Class</span></a></li>--}}
 
 
-
+                        @permission('see_patient')
                         <li><a href="javascript:;"><i class="fa fa-gear"></i><span>Patient Management</span></a>
                             <ul class="acc-menu">
-                                @permission('see_patient')
                                 <li><a href="{{route('patient.index')}}">Patients</a></li>
-                                @endpermission
                             </ul>
                         </li>
+                        @endpermission
+                        @permission('see_patient_billing')
+                        <li><a href="javascript:;"><i class="fa fa-gear"></i><span>Patient Bill Management</span></a>
+                            <ul class="acc-menu">
+                                @permission('see_patient_item_bill')
+                                <li><a href="{{route('patient.billing.index')}}">Itemised Bill</a></li>
+                                @endpermission
+                                {{--<li><a href="{{route('patient.index')}}">Patients</a></li>--}}
+                            </ul>
+                        </li>
+                        @endpermission
+                        @permission('collect_patient_item_bill')
+                        <li><a href="javascript:;"><i class="fa fa-gear"></i><span>Payments</span></a>
+                            <ul class="acc-menu">
+
+                                <li><a href="{{route('patient.billing.payment.index')}}">Pay Bill</a></li>
+
+                                {{--<li><a href="{{route('patient.index')}}">Patients</a></li>--}}
+                            </ul>
+                        </li>
+                        @endpermission
+                        @permission('see_user')
                         <li><a href="javascript:;"><i class="fa fa-gear"></i><span>User Management</span></a>
                             <ul class="acc-menu">
-                                @permission('see_user')
+
                                 <li><a href="{{route('users.index')}}">Users</a></li>
-                                @endpermission
+
                             </ul>
                         </li>
+                        @endpermission
                         <li><a href="javascript:;"><i class="fa fa-gear"></i><span>System Setting</span></a>
                             <ul class="acc-menu">
                                 @permission('see_roles')
@@ -62,6 +83,9 @@
                                 @else
                                     <li><a href="{{route('hospital.view')}}">Hospital Profile</a></li>
                                     @endif
+                                @endpermission
+                                @permission('see_item_bill')
+                                <li><a href="{{route('itemisedbill.index')}}">Itemised Bill</a></li>
                                 @endpermission
                             </ul>
                         </li>

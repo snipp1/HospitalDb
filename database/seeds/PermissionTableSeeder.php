@@ -127,6 +127,11 @@ class PermissionTableSeeder extends Seeder
                 'name'=>'see_hospital_profile',
                 'display_name'=>'Hospital Profile',
                 'description'=>'User can collect_patient item_bill'
+            ],
+            [
+                'name'=>'see_patient_billing',
+                'display_name'=>'See Patient Bill Menu',
+                'description'=>'User can collect_patient item_bill'
             ]
         ];
         foreach ($permissions as $key=>$value){

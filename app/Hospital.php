@@ -12,7 +12,7 @@ class Hospital extends Model
     protected $fillable=[
       'name','email','phone','postal_address','location',
         'website','sms_username','sms_password' ,'email_username',
-        'email_password' ,'product_key','is_locked','is_registered'
+        'email_password' ,'product_key','is_locked','is_registered','acronym'
 
     ];
 }

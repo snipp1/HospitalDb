@@ -12,6 +12,8 @@
 */
 
 // auth users routes
+use Knp\Snappy\Pdf;
+
 Route::group(['middleware' => 'guest'], function () {
 
     Route::get('/', [
@@ -95,9 +97,55 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/store', ['uses' => 'PatientController@store', 'as' => 'patient.store']);
         Route::get('/edit/{patient}', ['uses' => 'PatientController@edit', 'as' => 'patient.edit']);
         Route::post('/update/{patient}', ['uses' => 'PatientController@update', 'as' => 'patient.update']);
-        Route::get('/delete/{patient}', ['uses' => 'PatientController@delete', 'as' => 'patient.delete']);
+        Route::get('/delete/{patient}', ['uses' => 'PatientController@destroy', 'as' => 'patient.delete']);
+       // Route::get('/bill/{patient}', ['uses' => 'PatientController@bill', 'as' => 'patient.bill']);
+
+
+//    Patient route for billing
+        Route::group(['prefix' => 'billing'], function () {
+//individual routes
+            Route::get('/', ['middleware' => ['permission:see_patient_item_bill'],'uses' => 'BillsController@index', 'as' => 'patient.billing.index']);
+            Route::post('/show', ['middleware' => ['permission:see_patient_item_bill'],'uses' => 'BillsController@show', 'as' => 'patient.billing.show']);
+            Route::get('/create/{patient}', ['uses' => 'BillsController@create', 'as' => 'patient.billing.create']);
+            Route::post('/store', ['middleware'=>['permission:bill_patient_item_bill'],'uses' => 'BillsController@store', 'as' => 'patient.billing.store']);
+//            Route::get('/edit/{patient}', ['uses' => 'BillsController@edit', 'as' => 'patient.edit']);
+//            Route::post('/update/{patient}', ['uses' => 'BillsController@update', 'as' => 'patient.update']);
+//            Route::get('/delete/{patient}', ['uses' => 'BillsController@destroy', 'as' => 'patient.delete']);
+//            Route::get('/bill/{patient}', ['uses' => 'BillsController@bill', 'as' => 'patient.bill']);
+        });
+//        Patient route for billing
+        Route::group(['prefix' => 'payment'], function () {
+//individual routes
+            Route::get('/', ['uses' => 'BillPaymentController@index', 'as' => 'patient.billing.payment.index']);
+            Route::post('/show', ['uses' => 'BillPaymentController@show', 'as' => 'patient.billing.payment.show']);
+            Route::get('/create/{patient}', ['uses' => 'BillPaymentController@create', 'as' => 'patient.billing.payment.create']);
+            Route::post('/store', ['uses' => 'BillPaymentController@store', 'as' => 'patient.billing.payment.store']);
+            Route::post('/view/{bills}/', ['uses' => 'BillPaymentController@view', 'as' => 'patient.billing.payment.view']);
+            Route::post('/pay/', ['uses' => 'BillPaymentController@pay', 'as' => 'patient.payment.pay']);
+//            Route::get('/pay/{bills}/{amount}', ['uses' => 'BillPaymentController@pay', 'as' => 'patient.payment.pay']);
+//            Route::post('/update/{patient}', ['uses' => 'BillPaymentController@update', 'as' => 'patient.payment.update']);
+//            Route::get('/delete/{patient}', ['uses' => 'BillPaymentController@destroy', 'as' => 'patient.payment.delete']);
+            Route::post('/bill/{patient}', ['uses' => 'BillPaymentController@bills', 'as' => 'patient.billing.payment.bill']);
+        });
+
     });
+//    Itemised Bill route for super and admin
+                         Route::group(['prefix' => 'itemised'], function () {
+//individual routes
+                             Route::get('/bill', ['middleware' => ['permission:see_item_bill'],'uses' => 'ItemisedBillController@index', 'as' => 'itemisedbill.index']);
+                             Route::post('bill/show', ['uses' => 'ItemisedBillController@show', 'as' => 'itemisedbill.show']);
+                             Route::get('bill/create', ['uses' => 'ItemisedBillController@create', 'as' => 'itemisedbill.create']);
+                             Route::post('bill/store', ['uses' => 'ItemisedBillController@store', 'as' => 'itemisedbill.store']);
+                             Route::get('bill/edit/{itemisedBill}', ['uses' => 'ItemisedBillController@edit', 'as' => 'itemisedbill.edit']);
+                             Route::post('bill/update/{itemisedBill}', ['uses' => 'ItemisedBillController@update', 'as' => 'itemisedbill.update']);
+                             Route::get('bill/delete/{itemisedBill}', ['uses' => 'ItemisedBillController@destroy', 'as' => 'itemisedbill.delete']);
+                             Route::get('pull/{itemisedBill}', ['uses' => 'ItemisedBillController@pull', 'as' => 'itemisedbill.pull']);
+
+                         });
+
     Route::get('/logout', [
         'uses' => 'LoginController@logout',
         'as' => 'logout']);
 });
+
+Route::get('/print',['uses'=>'PatientController@prints'])->name('print');
