@@ -15,6 +15,7 @@ class CreateBillPaymentsTable extends Migration
     {
         Schema::create('bill_payments', function (Blueprint $table) {
             $table->increments('id');
+            $table->increments('id');
             $table->timestamps();
         });
     }

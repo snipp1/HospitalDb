@@ -90,6 +90,6 @@ public function bills(){
     return $this->hasMany('App\Bills','patients_id','id');
 }
 public function department(){
-    return $this->belongsToMany('App\Department','department_patients','department_id','patients_id','id','id');
+    return $this->belongsToMany('App\Department','department_patients','patients_id','department_id','id','id');
 }
 }

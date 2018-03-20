@@ -105,6 +105,7 @@ class PatientController extends Controller
             ]);
         }
         session()->flash('pine-msg', ['pine_title' => 'Registered', 'pine_body' => 'You have successfully add a Patient', 'pine_type' => 'success', 'pine_icon' => 'ti ti-check']);
+        session()->flash('swal-msg', 'swal({html:true,title:"Successful", text:"The Patients Folder Number is <strong style=\"color: blue;\">'.$patients->folder_number.'</strong>", type:"success",showCancelButton: true,confirmButtonText:"Print Details",cancelButtonText:"Close",closeOnConfirm: false,closeOnCancel:true})');
         return redirect()->back();
     }
 
@@ -181,39 +182,41 @@ class PatientController extends Controller
         //
         $users = auth()->user();
         if (empty($users->department)) {
-            return redirect()->back()->withInput()->withErrors("You are Not Under a department, Can not Register Patients");
+            return redirect()->back()->withInput()->withErrors("You are Not Under a department, Can not Update Patients");
         } else {
 
-            $patient->first_name=$request->input('');
-            $patient->other_name=$request->input('');
-            $patient->last_name=$request->input('');
-            $patient->gender=$request->input('');
-            $patient->dob=$request->input('');
-            $patient->nationality=$request->input('');
-            $patient->parity=$request->input('');
-            $patient->address=$request->input('');
-            $patient->occcupation=$request->input('');
-            $patient->marital_status=$request->input('');
-            $patient->religion=$request->input('');
-            $patient->educational_status=$request->input('');
-            $patient->patient_phone_number=$request->input('');
-            $patient->place_of_birth=$request->input('');
-            $patient->ethnicity=$request->input('');
-            $patient->patient_group=$request->input('');
-            $patient->next_of_king_name=$request->input('');
-            $patient->next_of_king_relationship=$request->input('');
-            $patient->next_of_king_contact=$request->input('');
-            $patient->referring_hospital_Clinic=$request->input('');
-            $patient->race=$request->input('');
-            $patient->facility_category=$request->input('');
-            $patient->facility_status=$request->input('');
-            $patient->emergency_referral=$request->input('');
-            $patient->gestational_age=$request->input('');
-            $patient->reason_for_referral=$request->input('');
-            $patient->clinical_visit=$request->input('');
-            $patient->type_of_patient=$request->input('');
-            $patient->insurance_name=$request->input('');
-            $patient->insurance_number=$request->input('');
+            $patient->first_name=$request->input('first_name');
+            $patient->other_name=$request->input('other_name');
+            $patient->last_name=$request->input('last_name');
+            $patient->gender=$request->input('gender');
+            $patient->dob=$request->input('dob');
+            $patient->nationality=$request->input('nationality');
+            $patient->parity=$request->input('parity');
+            $patient->address=$request->input('address');
+            $patient->occcupation=$request->input('occcupation');
+            $patient->marital_status=$request->input('marital_status');
+            $patient->religion=$request->input('religion');
+            $patient->educational_status=$request->input('educational_status');
+            $patient->patient_phone_number=$request->input('patient_phone_number');
+            $patient->place_of_birth=$request->input('place_of_birth');
+            $patient->ethnicity=$request->input('ethnicity');
+            $patient->patient_group=$request->input('patient_group');
+            $patient->next_of_king_name=$request->input('next_of_king_name');
+            $patient->next_of_king_relationship=$request->input('next_of_king_relationship');
+            $patient->next_of_king_contact=$request->input('next_of_king_contact');
+            $patient->referring_hospital_Clinic=$request->input('referring_hospital_Clinic');
+            $patient->race=$request->input('race');
+            $patient->facility_category=$request->input('facility_category');
+            $patient->facility_status=$request->input('facility_status');
+            $patient->emergency_referral=$request->input('emergency_referral');
+            $patient->gestational_age=$request->input('gestational_age');
+            $patient->reason_for_referral=$request->input('reason_for_referral');
+            $patient->clinical_visit=$request->input('clinical_visit');
+            $patient->type_of_patient=$request->input('type_of_patient');
+            $patient->insurance_name=$request->input('insurance_name');
+            $patient->insurance_number=$request->input('insurance_number');
+
+            $patient->save();
             session()->flash('pine-msg', ['pine_title' => 'Updated', 'pine_body' => 'You have successfully updated Patient data', 'pine_type' => 'success', 'pine_icon' => 'ti ti-check']);
             return redirect()->back();
 

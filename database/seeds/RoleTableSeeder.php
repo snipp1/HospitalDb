@@ -121,7 +121,14 @@ class RoleTableSeeder extends Seeder
         ];
 
         foreach ($roles as $key=>$value){
-            \App\Role::create($value);
+            $role= \App\Role::create($value);
+            if ($role->name=='developer'){
+                $permissions=\App\Permission::all();
+                foreach ($permissions as $value) {
+                    $role->attachPermission($value->id);
+
+                }
+            }
         }
     }
 }

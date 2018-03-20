@@ -74,8 +74,9 @@ class BillPaymentController extends Controller
         $bills = $patient->bills()->where('is_paid', 0);
         // add query for by department and by hospital
         return DataTables::of($bills)->addColumn('action', function ($data) use ($patient) {
-            return '<a href="#" onclick="showDetails('.$data->id.')" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a> ' .
-                '<a href="#" onclick="payBill('.$data->id.')" class="btn btn-success btn-sm"><i class="fa fa-money"></i></a> ';
+            return '<a href="' . route('patient.billing.payment.accept', $data->id) . '" class="btn btn-info btn-sm"><i class="fa fa-check"></i></a> ' ;
+//             '<a href="#" onclick="showDetails('.$data->id.')" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a> ' .
+//                '<a href="#" onclick="payBill('.$data->id.')" class="btn btn-success btn-sm"><i class="fa fa-money"></i></a> ';
         })->editColumn('id',function ($data) use ($patient){
             if (!empty($patient->department()->where('is_active',1)->first())){
                 return $patient->department()->where('is_active',1)->first()->acronym.$data->id;
@@ -102,6 +103,14 @@ $items=$bills->items();
 return DataTables::of($items)->addColumn('name',function ($data){
     return $data->itemised->name;
 })->toJson();
+    }
+    public function accept(Bills $bills)
+    {
+$bills->is_paid=1;
+$bills->save();
+        session()->flash('pine-msg',['pine_title'=>'Payment Saved','pine_body'=>'You have successfully made payment','pine_type'=>'success','pine_icon'=>'ti ti-check']);
+
+        return redirect()->back();
     }
     public function pay(Request $request)
     {

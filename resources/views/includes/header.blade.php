@@ -13,6 +13,34 @@
 
 
     </div><!-- logo-area -->
+    @role('developer')
+<div class="col-sm-5">
+    <br>
+    <form action="{{route('change_dep')}}" method="post" id="change_dep">
+        {{csrf_field()}}
+        <div class="col-sm-6">
+            <select name="change_h_id" class="form-control" id="change_h_id">
+                <option value="">-- Select Hospital --</option>
+                @foreach($hos as $item)
+                    <option value="{{$item->id}}" {{auth()->user()->hospital_id==$item->id ? 'selected' : ''}}>{{$item->name}}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col-sm-6">
+            <select name="change_dep_id" class="form-control" id="change_dep_id">
+                <option value="">-- Select Department --</option>
+                @if(!empty($deps))
+                @foreach($deps as $item)
+                    <option value="{{$item->id}}" {{auth()->user()->department_id==$item->id ? 'selected' : ''}}>{{$item->description}}</option>
+                @endforeach
+                    <option value="all">All</option>
+                    @endif
+            </select>
+        </div>
+
+    </form>
+</div>
+@endrole
 
     <ul class="nav navbar-nav toolbar pull-right">
 

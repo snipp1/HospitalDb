@@ -14,4 +14,7 @@ class Department extends Model
     public function hospital(){
         return $this->belongsTo('App\Hospital','hospital_id','id');
     }
+//    public function patients(){
+//        return $this->hasManyThrough('App\Patient','department_patients','department_id','id');
+//    }
 }

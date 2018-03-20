@@ -75,7 +75,7 @@
             </div>
             <div class="panel-body">
                 <input type="text" name="patient_id" id="" value="{{$patient->id}}" hidden>
-                <input type="text" name="bill_amount" id="bill_amount" value="{{$patient->id}}" hidden>
+                <input type="text" name="bill_amount" id="bill_amount" value="" hidden>
                 <div class="row">
                     <div class="col-sm-9">
                         <table id="load-table" class=" table table-striped m-n " cellspacing="0" width="100%">

@@ -8,6 +8,6 @@ class department_patients extends Model
 {
     //
     protected $fillable=[
-        'patients_id','department_id','in_date','moved_by'
+        'patients_id','department_id','in_date','moved_by','is_active'
     ];
 }

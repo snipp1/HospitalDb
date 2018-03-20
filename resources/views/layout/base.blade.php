@@ -34,7 +34,7 @@
     <link type="text/css" href="{{asset('assets/plugins/pines-notify/pnotify.css')}}" rel="stylesheet"> 			<!-- jVectorMap -->
     <link type="text/css" href="{{asset('assets/plugins/switchery/switchery.css')}}" rel="stylesheet">
     <link type="text/css" href="{{asset('assets/plugins/gridforms/gridforms/gridforms.css')}}" rel="stylesheet">
-
+    <link type="text/css" href="{{asset('css/sweetalert.css')}}" rel="stylesheet">
     {{--<link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">--}}
     <link type="text/css" href="{{asset('assets/css/styles.css')}}" rel="stylesheet">
     <!-- Switchery -->
@@ -142,6 +142,7 @@
 <script src="{{asset('assets/plugins/quicksearch/jquery.quicksearch.min.js')}}"></script>
 <script src="{{asset('assets/plugins/pines-notify/pnotify.min.js')}}"></script>
 <script src="{{asset('assets/plugins/gridforms/gridforms/gridforms.js')}}"></script>
+<script src="{{asset('js/sweetalert.min.js')}}"></script>
 {{--<script type="text/javascript" src="{{asset('assets/demo/demo-index.js')}}"></script> 									<!-- Initialize scripts for this page-->--}}
 @stack('scripts')
 <!-- End loading page level scripts-->
@@ -154,9 +155,18 @@
             icon: '{!! session("pine-msg")["pine_icon"] !!}',
             styling: 'fontawesome'
         });
+
     </script>
 
 
 @endif
+<script>
+$('#change_h_id').on('change',function () {
+$('#change_dep').submit();
+});
+$('#change_dep_id').on('change',function () {
+$('#change_dep').submit();
+})
+</script>
 </body>
 </html>

@@ -312,9 +312,18 @@
                                 </div>
                                 <div data-field-span="1">
                                     <label>Emergency Referral</label>
-                                    <label><input value="Yes" type="radio" name="emergency_referral"> Yes</label> &nbsp;
+                                    @if($patient->emergency_referral=="Yes")
+                                    <label><input value="Yes" checked type="radio" name="emergency_referral"> Yes</label> &nbsp;
                                     <label><input value="No" type="radio" name="emergency_referral"> No</label> &nbsp;
+@elseif($patient->emergency_referral=="No")
+                                        <label><input value="Yes" type="radio" name="emergency_referral"> Yes</label> &nbsp;
+                                        <label><input value="No" checked type="radio" name="emergency_referral"> No</label> &nbsp;
 
+                                    @else
+                                        <label><input value="Yes" type="radio" name="emergency_referral"> Yes</label> &nbsp;
+                                        <label><input value="No" type="radio" name="emergency_referral"> No</label> &nbsp;
+
+                                    @endif
                                 </div>
                             </div>
                             <div data-row-span="1">

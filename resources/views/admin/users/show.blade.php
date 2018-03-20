@@ -17,7 +17,7 @@
 @section('contents')
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h2>Users</h2>
+            <h2>Users {{!empty($_user->department)?"of ".$_user->department->description:""}}</h2>
             <div class="panel-ctrls" style="padding-top: 10px;" >
                 <a href="{{route('users.create')}}" class="btn btn-default"><i class="ti ti-pencil"></i> Add Users</a>
             </div>
@@ -33,8 +33,10 @@
                     <th>Username</th>
                     <th>Email</th>
                     <th>Phone</th>
+                    @if(empty($_user->department))
                     <th>Hospital</th>
                     <th>Department</th>
+                    @endif
                     <th>Status</th>
                     <th>Online</th>
                     <th>Action</th>
@@ -67,8 +69,11 @@
                     { data: 'username', name: 'username' },
                     { data: 'email', name: 'email' },
                     { data: 'official_phone', name: 'official_phone' },
-                    { data: 'hospital_id', name: 'pharmacy_id' },
-                    { data: 'department_id', name: 'brunch_id' },
+                @if(empty($_user->department))
+                    { data: 'hospital_id', name: 'hospital_id' },
+                    { data: 'department_id', name: 'department_id' },
+                @endif
+
                     { data: 'is_locked', name: 'is_locked' },
                     { data: 'is_login', name: 'is_login' },
                     { data: 'action', name: 'action' ,orderable:false ,searchable:false},

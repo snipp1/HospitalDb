@@ -42,6 +42,13 @@ return view('admin.Bill.make',compact('patient','itm'));
      */
     public function store(Request $request)
     {
+        $this->validate($request,[
+            'patient_id'=>'required',
+            'bill_amount'=>'required',
+        ]);
+        if ($request->input('bill_amount')==0){
+            return redirect()->back()->withErrors("Cannot Submit empty Bill");
+        }
         $users=auth()->user();
         $patient=Patient::find($request->input('patient_id'));
        $bill= Bills::create([

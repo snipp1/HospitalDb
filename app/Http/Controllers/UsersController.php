@@ -186,9 +186,20 @@ $user->attachRole($request->input('role'));
     {
         $user=auth()->user();
         if ($user->hasRole('developer')){
-            $users = User::all();
+            if (!empty($user->hospital)){
+                if (!empty($user->department)) {
+                    $users = User::all()->where('hospital_id',$user->hospital->id)
+                        ->where('department_id',$user->department->id);
+                }else{
+                    $users = User::all()->where('hospital_id',$user->hospital->id);
+                }
+            }else{
+                $users = User::all();
+            }
+
         }else{
-            $users = User::all()->where('hospital_id',$user->hospital->id);
+            $users = User::all()->where('hospital_id',$user->hospital->id)
+                ->where('department_id',$user->department->id);
         }
 
         return DataTables::of($users)->addColumn('action', function ($data) {
@@ -226,5 +237,25 @@ $user->attachRole($request->input('role'));
                 return "Null";
             }
         })->rawColumns(['action','is_locked','is_login','on_shift','hospital_id','department_id'])->toJson();
+    }
+
+    public function change_dep(Request $request){
+      $users=  auth()->user();
+      $users=User::find($users->id);
+      if (!empty($request->input('change_dep_id'))) {
+          if ($request->input('change_dep_id')=="all"){
+              $users->department_id=null;
+          }else{
+              $users->department_id=$request->input('change_dep_id');
+          }
+      }
+      if (empty($request->input('change_h_id'))){
+          $users->department_id=null;
+          $users->hospital_id=$request->input('change_h_id');
+      }else{
+          $users->hospital_id=$request->input('change_h_id');
+      }
+      $users->save();
+      return redirect()->back();
     }
 }

@@ -341,6 +341,7 @@
                         </div>
                         <div data-row-span="3">
                             <div data-field-span="1">
+
                                 <label>Parity</label>
                                 <select name="parity" class="form-control" id="">
                                     <option value="" >-- select--</option>
@@ -449,6 +450,12 @@
 @endsection
 
 @push('scripts')
+    @if(session()->has('pine-msg'))
+        <script>
+            {!! session("swal-msg")!!}
+        </script>
 
+
+    @endif
 
 @endpush
